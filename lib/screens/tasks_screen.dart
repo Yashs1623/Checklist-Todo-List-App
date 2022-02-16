@@ -2,14 +2,12 @@
 import 'package:checklist/widgets/add_task_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:checklist/widgets/task_list.dart';
+import 'package:checklist/models/tasks.dart';
+import 'package:provider/provider.dart';
+import 'package:checklist/models/task_data_provider.dart';
 
 // ignore: use_key_in_widget_constructors
-class TaskScreen extends StatefulWidget {
-  @override
-  _TaskScreenState createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
+class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class _TaskScreenState extends State<TaskScreen> {
               child: Container(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: const AddTaskScreen(),
+                child: AddTaskScreen(),
               ),
             ),
           );
@@ -43,8 +41,8 @@ class _TaskScreenState extends State<TaskScreen> {
                 top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                CircleAvatar(
+              children: <Widget>[
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30.0,
                   child: Icon(
@@ -53,10 +51,10 @@ class _TaskScreenState extends State<TaskScreen> {
                     color: Colors.lightBlueAccent,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Text(
+                const Text(
                   'Todoey',
                   style: TextStyle(
                     color: Colors.white,
@@ -64,9 +62,18 @@ class _TaskScreenState extends State<TaskScreen> {
                     fontSize: 50.0,
                   ),
                 ),
-                Text(
-                  '10 tasks',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: (Provider.of<TaskData>(context).taskCount ==0) ?
+                    const Text(
+                      'You have no tasks currently.',
+                    // '${} tasks remaining',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ) :
+                     Text(
+                    '${Provider.of<TaskData>(context).taskCount} tasks remaining',
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
               ],
             ),
