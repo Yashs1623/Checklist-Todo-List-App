@@ -1,5 +1,5 @@
 import 'package:checklist/models/task_data_provider.dart';
-import 'package:checklist/widgets/task_tile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +7,7 @@ class AddTaskScreen extends StatelessWidget {
 
 
   // const AddTaskScreen({Key? key}) : super(key: key);
-   late String newTask;
+  late String newTask;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +53,7 @@ class AddTaskScreen extends StatelessWidget {
                 onPressed: () {
                   // print(newTask);
                   Provider.of<TaskData>(context, listen: false).addTask(newTask);
+                  Provider.of<TaskData>(context,listen: false).saveTasks(newTask);
                   Navigator.pop(context);
                   // tasksContainer.add(TaskTile(taskTitle:taskTitle));
                 },
